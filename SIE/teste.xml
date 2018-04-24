@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Intrebari>
+	<useri>
+		<user>
+			<email>denis@yahoo.com</email>
+			<parola>1234</parola>
+		</user>
+		<user>
+			<email>user1@yahoo.com</email>
+			<parola>user1</parola>
+		</user>
+	</useri>
+	<nrUtilizatori>2</nrUtilizatori>
+	<nrAnonimi>2</nrAnonimi>
+	<nrAccesari>4</nrAccesari>
+</Intrebari>

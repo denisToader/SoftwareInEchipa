@@ -5,6 +5,24 @@
  */
 package sie;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 /**
  *
  * @author denis
@@ -15,8 +33,39 @@ public class Intrebari extends javax.swing.JFrame {
      * Creates new form Intrebari
      */
  
+    DocumentBuilderFactory factory;
+    DocumentBuilder builder;
+    Document doc;
+    
     public Intrebari() {
-        initComponents();  
+        initComponents(); 
+        
+        factory = DocumentBuilderFactory.newInstance();
+        try {
+            builder = factory.newDocumentBuilder();
+            doc = builder.parse("teste.xml");
+            
+            String nrAccesA = doc.getElementsByTagName("nrAnonimi").item(0).getTextContent();
+            String nrAccesU = doc.getElementsByTagName("nrUtilizatori").item(0).getTextContent();
+            Node nrAcces = doc.getElementsByTagName("nrAccesari").item(0);
+            
+            nrAcces.setTextContent(Integer.toString((Integer.parseInt(nrAccesA))+ Integer.parseInt(nrAccesU)).toString());
+            
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("teste.xml"));
+            transformer.transform(source, result);
+            
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException ex) {
+            Logger.getLogger(Intrebari.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Intrebari.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformerException tfe) {
+		tfe.printStackTrace();
+	}
     }
 
     /**
@@ -182,11 +231,30 @@ public class Intrebari extends javax.swing.JFrame {
     }//GEN-LAST:event_parolaActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        // TODO add your handling code here:  
+        // TODO add your handling code here: 
+        String emailValue = email.getText();
+        char[] parolaValue = parola.getPassword();
+        
+        NodeList user = doc.getElementsByTagName("user");
+
+        for (int temp = 0; temp < user.getLength(); temp++) {
+        Node nNode = user.item(temp);
+
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+               Element eElement = (Element) nNode;
+             
+               if(eElement.getElementsByTagName("email").item(0).getTextContent().equals(emailValue) && eElement.getElementsByTagName("parola").item(0).getTextContent().equals(new String(parolaValue))) {
+                   new Welcome(emailValue).setVisible(true);
+                   this.setVisible(false);
+               }
+            }      
+        }
     }//GEN-LAST:event_loginActionPerformed
 
     private void anonimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anonimActionPerformed
         // TODO add your handling code here:
+        new Welcome("Anonim").setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_anonimActionPerformed
 
     private void appStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appStatsActionPerformed

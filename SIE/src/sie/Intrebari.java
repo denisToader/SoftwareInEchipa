@@ -258,6 +258,8 @@ public class Intrebari extends javax.swing.JFrame {
     }//GEN-LAST:event_anonimActionPerformed
 
     private void appStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appStatsActionPerformed
+	new appStats().setVisible(true);
+        this.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_appStatsActionPerformed
 

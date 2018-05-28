@@ -5,6 +5,23 @@
  */
 package sie;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
 /**
  *
  * @author denis
@@ -78,8 +95,47 @@ public class Welcome extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    DocumentBuilderFactory factory;
+    DocumentBuilder builder;
+    Document doc;
     private void incepeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incepeActionPerformed
-        // TODO add your handling code here:     
+        // TODO add your handling code here:
+        Random r = new Random();
+        new Testul(r.nextInt((5-1)+ 1) + 1,eMail).setVisible(true);
+        this.setVisible(false);
+        
+        factory = DocumentBuilderFactory.newInstance();
+        try {
+            builder = factory.newDocumentBuilder();
+            doc = builder.parse("teste.xml");
+            
+            Node nrAcces;
+            if(eMail.equals("Anonim")) {
+                nrAcces = doc.getElementsByTagName("nrAnonimi").item(0);
+            } else {
+                nrAcces = doc.getElementsByTagName("nrUtilizatori").item(0);
+            }
+  
+            String accesari = nrAcces.getTextContent();      
+            int nrAccesari = Integer.parseInt(accesari) + 1;
+            
+            nrAcces.setTextContent(Integer.toString(nrAccesari));
+            
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("teste.xml"));
+            transformer.transform(source, result);
+            
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException ex) {
+            Logger.getLogger(Intrebari.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Intrebari.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformerException tfe) {
+		tfe.printStackTrace();
+	}
     }//GEN-LAST:event_incepeActionPerformed
 
     /**

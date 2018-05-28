@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<test1>
+	<intrebare id="1">
+		<continut>In ce an suntem?</continut>
+		<variante>
+			<first>2011</first>
+			<second>2018</second>
+			<third>2000</third>
+		</variante>
+		<correct>2018</correct>
+		<timp>15</timp>
+		<multiple>no</multiple>
+	</intrebare>
+	
+	<intrebare id="2">
+		<continut>Pe ce planeta locuim?</continut>
+		<variante>
+			<first>Terra</first>
+			<second>Pamant</second>
+			<third>Marte</third>
+		</variante>
+		<correct>Terra,Pamant</correct>
+		<timp>25</timp>
+		<multiple>yes</multiple>
+	</intrebare>
+	
+	<intrebare id="3">
+		<continut>Ce limba vorbim?</continut>
+		<variante>
+			<first>Engleza</first>
+			<second>Franceza</second>
+			<third>Romana</third>
+		</variante>
+		<correct>Romana</correct>
+		<timp>20</timp>
+		<multiple>no</multiple>
+	</intrebare>
+	
+	<intrebare id="4">
+		<continut>In ce tara suntem?</continut>
+		<variante>
+			<first>Italia</first>
+			<second>Romania</second>
+			<third>Grecia</third>
+		</variante>
+		<correct>Romania</correct>
+		<timp>30</timp>
+		<multiple>no</multiple>
+	</intrebare>
+	
+	<intrebare id="5">
+		<continut>Cate unghiuri are un patrat?</continut>
+		<variante>
+			<first>Patru</first>
+			<second>4</second>
+			<third>3</third>
+		</variante>
+		<correct>Patru,4</correct>
+		<timp>30</timp>
+		<multiple>yes</multiple>
+	</intrebare>
+	
+</test1>
